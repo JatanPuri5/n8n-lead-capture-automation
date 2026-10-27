@@ -1,0 +1,209 @@
+{
+  "name": "Lead Capture Automation - Portfolio Template",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Contact Us",
+        "formDescription": "Tell us what you need and we will get back to you shortly.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Full Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Required Service",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Message",
+              "fieldType": "textarea",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "path": "lead-capture-portfolio-demo",
+          "respondWithOptions": {
+            "values": {
+              "formSubmittedText": "Thank you! We have received your request."
+            }
+          }
+        }
+      },
+      "id": "9bdbf723-8368-4073-827e-b9d4abb3a25e",
+      "name": "Lead Capture Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "9ad994b6-1657-4bfa-bad4-ad21defe8a44"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "",
+          "mode": "list"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Submitted At": "={{ $json.submittedAt }}",
+            "Full Name": "={{ $json[\"Full Name\"] }}",
+            "Email": "={{ $json.Email }}",
+            "Required Service": "={{ $json[\"Required Service\"] }}",
+            "Message": "={{ $json.Message }}"
+          },
+          "schema": [
+            {
+              "id": "Submitted At",
+              "displayName": "Submitted At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "Required Service",
+              "displayName": "Required Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b0f4a657-5c0b-4382-a530-7cfded9e72af",
+      "name": "Add Lead to Google Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Lead Capture Form').item.json.Email }}",
+        "subject": "We received your request",
+        "emailType": "text",
+        "message": "=Hi {{ $('Lead Capture Form').item.json['Full Name'] }},\n\nThanks for reaching out about \"{{ $('Lead Capture Form').item.json['Required Service'] }}\". We have received your message and will get back to you soon.\n\nBest regards",
+        "options": {}
+      },
+      "id": "7a35567d-41e3-408e-876b-7d69b30ea8f6",
+      "name": "Send Confirmation Email to Lead",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        0
+      ],
+      "webhookId": "5d928628-56bd-4b35-83cf-764492d0f287"
+    },
+    {
+      "parameters": {
+        "sendTo": "owner@example.com",
+        "subject": "=New lead: {{ $('Lead Capture Form').item.json['Full Name'] }}",
+        "emailType": "text",
+        "message": "=A new lead has been submitted.\n\nSubmitted At: {{ $('Lead Capture Form').item.json.submittedAt }}\nName: {{ $('Lead Capture Form').item.json['Full Name'] }}\nEmail: {{ $('Lead Capture Form').item.json.Email }}\nService: {{ $('Lead Capture Form').item.json['Required Service'] }}\nMessage: {{ $('Lead Capture Form').item.json.Message }}",
+        "options": {}
+      },
+      "id": "727b4c61-b8f3-426e-b029-a8f205fd5c60",
+      "name": "Notify Business Owner",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        0
+      ],
+      "webhookId": "b5c7c472-cf43-4233-87f2-9c990e3982d6"
+    }
+  ],
+  "connections": {
+    "Lead Capture Form": {
+      "main": [
+        [
+          {
+            "node": "Add Lead to Google Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Lead to Google Sheet": {
+      "main": [
+        [
+          {
+            "node": "Send Confirmation Email to Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Confirmation Email to Lead": {
+      "main": [
+        [
+          {
+            "node": "Notify Business Owner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "active": false,
+  "pinData": {},
+  "tags": []
+}
