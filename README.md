@@ -29,9 +29,11 @@ The email nodes reference the original form output explicitly. This preserves th
 
 ## Verified result and limits
 
-The original configured workflow passed one real manual test on October 27, 2026. User-provided screenshots show the submitted form, one spreadsheet row with all five values, and both received emails with correct details.
+The original workflow and the sanitized template imported as a separate workflow were both manually tested on October 27, 2026, in the same n8n Cloud account.
 
-This exported template has been checked structurally, but has not been imported and executed in a fresh n8n instance. Connect your own accounts and run the setup test before using it. It is a personal demonstration, not paid-client work or a production reliability claim. No measured time savings or revenue improvement is claimed.
+After configuring credentials, spreadsheet mappings, and the owner email, the imported workflow successfully saved all five values to Google Sheets and delivered both emails with the correct details. Screenshots are included in the screenshots folder.
+
+This is a personal portfolio demonstration, not paid-client work or a production reliability claim. No measured time savings or revenue improvement is claimed.
 
 ## Scope
 
