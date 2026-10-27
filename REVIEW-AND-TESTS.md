@@ -2,7 +2,7 @@
 
 ## Evidence reviewed
 
-The source export and the user's screenshots of one manual test were reviewed. No access to the user's running n8n instance, Google account, or execution history was used.
+The source export and screenshots of two successful manual tests were reviewed: the original workflow and the sanitized template imported as a separate workflow in the same n8n Cloud account on October 27, 2026. Evidence includes the successful workflow canvas, populated spreadsheet rows, and both received emails. No direct access to the running accounts or execution history was used for this review.
 
 | Check | Result |
 | --- | --- |
@@ -14,7 +14,7 @@ The source export and the user's screenshots of one manual test were reviewed. N
 | Pinned data | Empty object in source JSON. |
 | Publication state | Source export has active=false. |
 | Sanitized template JSON and connection integrity | Validated locally during packaging. |
-| Fresh import/live run of sanitized template | Not performed; requires account and destination configuration. |
+| Fresh import/live run of sanitized template | Passed after configuring credentials, spreadsheet mappings, and owner email. Screenshots confirm all four nodes succeeded, all five values were saved, and both emails were received. |
 
 ## Useful remaining checks
 
@@ -22,8 +22,6 @@ These are suggested checks, not completed test results:
 
 - Leave a required field empty and verify the form blocks submission.
 - Enter an invalid email format and verify the form blocks submission without a row/email.
-- Use a different name and service with an inbox you control to verify values are dynamic.
-- Import the public template into a new workflow, reconnect accounts, and repeat one successful test.
 
 ## Known limits
 
