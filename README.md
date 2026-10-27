@@ -53,3 +53,17 @@ Workflow JSON is not a backup of OAuth tokens, spreadsheet contents, email histo
 - [n8n Cloud trial](https://docs.n8n.io/manage-cloud/cloud-free-trial/)
 
 Keep an offline export and demo recording. The Cloud trial is time-limited; this package does not require purchasing a subscription to inspect the files.
+
+## Demo screenshots
+
+### Successful workflow execution
+![Workflow execution](<screenshots/Workflow canvas.png>)
+
+### Lead saved in Google Sheets
+![Google Sheets result](<screenshots/Google Sheet.png>)
+
+### Customer confirmation
+![Customer confirmation email](<screenshots/Notification 2.png>)
+
+### Business owner notification
+![Owner notification email](<screenshots/Notification 1.png>)
